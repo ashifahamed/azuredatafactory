@@ -26,7 +26,7 @@
 					"name": "AddedtheTimestampColumn"
 				}
 			],
-			"script": "source(output(\n\t\tFilm as string,\n\t\tGenre as string,\n\t\t{Lead Studio} as string,\n\t\t{Audience score %} as string,\n\t\tProfitability as string,\n\t\t{Rotten Tomatoes %} as string,\n\t\t{Worldwide Gross} as string,\n\t\tYear as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> MoveDataset\nMoveDataset derive(DataTimstamp = currentTimestamp()) ~> AddedtheTimestampColumn\nAddedtheTimestampColumn sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+			"script": "source(output(\n\t\tFilm as string,\n\t\tGenre as string,\n\t\t{Lead Studio} as string,\n\t\t{Audience score %} as string,\n\t\tProfitability as string,\n\t\t{Rotten Tomatoes %} as string,\n\t\t{Worldwide Gross} as string,\n\t\tYear as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> MoveDataset\nMoveDataset derive(DataTimstamp = currentTimestamp()) ~> AddedtheTimestampColumn\nAddedtheTimestampColumn sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> sink1"
 		}
 	}
 }
